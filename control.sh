@@ -8,13 +8,14 @@ function do_start {
   : ${NETWORK?"Need to set NETWORK"}
   : ${SHIP_NAME?"Need to set SHIP_NAME"}
   : ${API_URL?"Need to set API_URL"}
-  echo "Starting"
   docker run --name $SHIP_NAME -e "API_URL=$API_URL" -e "SHIP_NAME=$SHIP_NAME" $CONTAINER_IMAGE > container_id
-
+  CONTAINER_ID=`cat container_id`
+  docker inspect -f "{{ .Node.Addr }}" $CONTAINER_ID > node_addr
+  NODE_ADDR=`car node_addr`
+  echo "{\"id\": \"$CONTAINER_ID\", \"addr\": \"$NODE_ADDR\"}"
 }
 function do_stop {
   : ${CONTAINER_ID?"Need to set CONTAINER_ID"}
-  echo "Stopping"
   docker rm -f $CONTAINER_ID
 }
 
