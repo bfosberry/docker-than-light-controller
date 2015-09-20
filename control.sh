@@ -5,7 +5,7 @@ set -e
 
 function do_start {
   : ${CONTAINER_IMAGE?"Need to set CONTAINER_IMAGE"}
-  : ${NETWORK?"Need to set NETWORK"}
+  #: ${NETWORK?"Need to set NETWORK"}
   : ${SHIP_NAME?"Need to set SHIP_NAME"}
   : ${API_URL?"Need to set API_URL"}
   docker run --name $SHIP_NAME -e "API_URL=$API_URL" -e "SHIP_NAME=$SHIP_NAME" $CONTAINER_IMAGE > container_id
